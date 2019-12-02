@@ -15,7 +15,7 @@
         <div class="text-white">Hello, <strong>{{user.username}}</strong>!</div>
 
         {%if user.is_active == True%}
-        <a href="#" class="btn btn-success ml-4">New Page</a>
+        <a href="{%url 'createPage'%}" class="btn btn-success ml-4">New Page</a>
         <a href="accounts/logout/" class="btn btn-danger ml-2">Log Out</a>
         {%else%}
         <a href="accounts/login/" class="btn btn-secondary ml-2">Log In</a>

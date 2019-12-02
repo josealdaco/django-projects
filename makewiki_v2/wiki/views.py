@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponseRedirect
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from wiki.models import Page
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
+from wiki.forms import PageForm
 
 
 class PageListView(ListView):
@@ -35,3 +36,17 @@ class SignUpView(CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy('login')
     template_name = 'signup.html'
+
+
+class CreatePage(CreateView):
+    def get(self, request, *args, **kwargs):
+        context = {'form': PageForm()}
+        return render(request, 'createPage.html', context)
+
+    def post(self, request, *args, **kwargs):
+        form = PageForm(request.POST)
+        if form.is_valid():
+            new_Page = form.save()
+            new_Page.save()
+            return HttpResponseRedirect(reverse_lazy('wiki-list-page'))
+        return render(request, 'createPage.html', {'form': form})
