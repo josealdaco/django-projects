@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
     'pizza.apps.PizzaConfig',
     'user_health.apps.UserHealthConfig',
     'django.contrib.admin',
